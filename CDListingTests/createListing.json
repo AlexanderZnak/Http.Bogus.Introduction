@@ -1,0 +1,45 @@
+{
+  "origin": {
+    "city": "Townsend",
+    "state": "WI",
+    "zip": "54175"
+  },
+  "destination": {
+    "city": "Beverly Hills",
+    "state": "CA",
+    "zip": "90210"
+  },
+  "partnerReferenceId": "multi-car",
+  "trailerType": "Open",
+  "vehicles": [
+    {
+      "id": "1",
+      "year": "2008",
+      "make": "nissan",
+      "model": "altima",
+      "vehicleType": "CAR",
+      "qty": "1",
+      "wideLoad": "false"
+    },
+    {
+      "id": "1",
+      "year": "2008",
+      "make": "nissan",
+      "model": "altima",
+      "vehicleType": "CAR",
+      "qty": "1",
+      "wideLoad": "false"
+    }
+  ],
+  "hasInOpVehicle": "false",
+  "availableDate": "2020-12-31",
+  "desiredDeliveryDate": "2020-12-31",
+  "price": {
+    "total": 1600,
+    "cod": {
+      "amount": 1600,
+      "paymentMethod": "CHECK",
+      "paymentLocation": "Delivery"
+    }
+  }
+}

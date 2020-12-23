@@ -1,0 +1,77 @@
+﻿{
+  "id": "39879347",
+  "shipperId": "7769cd68-6405-4152-9545-18da3e0a95d1",
+  "href": "https://stage-api.awscalnp.manheim.com/listing-service/listings/id/39879347",
+  "listingStatus": "PENDING",
+  "origin": {
+    "city": "Townsend",
+    "state": "WI",
+    "zip": "54175",
+    "geoCode": {
+      "longitude": -88.616932,
+      "latitude": 45.291822
+    },
+    "metroArea": "Green Bay"
+  },
+  "destination": {
+    "city": "Stone Mountain",
+    "state": "GA",
+    "zip": "30087",
+    "geoCode": {
+      "longitude": -84.132568,
+      "latitude": 33.815780
+    },
+    "metroArea": "Atlanta - Sandy Springs - Marietta"
+  },
+  "distance": 1021,
+  "additionalInfo": "",
+  "shipperOrderId": "",
+  "trailerType": "OPEN",
+  "hasInOpVehicle": false,
+  "vehicleCount": 1,
+  "vehicles": [
+    {
+      "id": "35735849",
+      "vin": null,
+      "vehicleType": "CAR",
+      "vehicleTypeOther": null,
+      "color": null,
+      "licensePlate": null,
+      "licensePlateState": null,
+      "lotNumber": null,
+      "year": 2008,
+      "make": "nissan",
+      "model": "sentra",
+      "qty": 1,
+      "additionalInfo": null,
+      "wideLoad": true,
+      "shippingSpecs": {
+        "height": 57,
+        "width": 70,
+        "length": 189,
+        "weight": 3479
+      }
+    }
+  ],
+  "availableDate": "2020-12-31",
+  "createdDate": "2020-03-28T10:13:02Z",
+  "deletedDate": null,
+  "archivedDate": null,
+  "expirationDate": "2020-03-03T08:00:00Z",
+  "desiredDeliveryDate": "2020-12-31",
+  "price": {
+    "total": 15.0,
+    "cod": {
+      "amount": 15.00,
+      "paymentMethod": "CHECK",
+      "paymentLocation": "DELIVERY"
+    },
+    "balance": {
+      "amount": 0.00,
+      "paymentTime": null,
+      "balancePaymentTermsBeginOn": null,
+      "balancePaymentMethod": null
+    }
+  },
+  "partnerReferenceId": "multi-car"
+}
