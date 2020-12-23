@@ -1,32 +1,27 @@
 ﻿
 
 using Bogus;
-using CDListingTests.Models;
+using CDListingTests.Entities.Fakers;
+using Newtonsoft.Json;
+using System;
+using System.IO;
 
 namespace CDListingTests
 {
     public static class ListingFactory
     {
-        public static ListingHttp listing;
 
-        public static ListingHttp GenerateFakeListing()
+        public static Faker<ListingHttp> GenerateFakeListing()
         {
-            listing = new ListingHttp()
-            {
-                Origin = new Location()
-                {
-                    City = "wafd", State
-
-                }
-
-            };
-            return new ListingHttp();
+            return ListingFaker.AllFields();
         }
 
-        private static Faker<ListingHttp> GenerateFakeData()
+        public static void WriteListingToFile()
         {
-            return new Faker<ListingHttp>()
-                .RuleFor(x => x.TrailerType, f=> f.Random.ArrayElement())
+            var listing = GenerateFakeListing().Generate();
+            var jsonObj = JsonConvert.SerializeObject(listing);
+            string pathToJsonFile = "..//..//..//listing.json";
+            File.WriteAllText(pathToJsonFile, jsonObj);
         }
     }
 }

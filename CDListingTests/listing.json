@@ -1,0 +1,45 @@
+{
+  "Origin": {
+    "City": "Townsend",
+    "State": "WI",
+    "Zip": "54175"
+  },
+  "Destination": {
+    "City": "Beverly Hills",
+    "State": "CA",
+    "Zip": "90210"
+  },
+  "PartnerReferenceId": "multi-car",
+  "TrailerType": 1,
+  "Vehicles": [
+    {
+      "Id": "1",
+      "Year": 2017,
+      "Make": "toyota",
+      "Model": "altima",
+      "Qty": 1,
+      "WideLoad": false,
+      "VehicleType": 2
+    },
+    {
+      "Id": "1",
+      "Year": 2020,
+      "Make": "ford",
+      "Model": "pt cruiser",
+      "Qty": 1,
+      "WideLoad": true,
+      "VehicleType": 7
+    }
+  ],
+  "HasInOpVehicle": true,
+  "AvailableDate": "2021-12-23",
+  "DesiredDeliveryDate": "2025-12-23",
+  "Price": {
+    "Total": 6654.0,
+    "Cod": {
+      "Amount": 6654.0,
+      "PaymentMethod": 0,
+      "PaymentLocation": 0
+    }
+  }
+}

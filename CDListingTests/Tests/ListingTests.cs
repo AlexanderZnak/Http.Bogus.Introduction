@@ -16,6 +16,13 @@ namespace CDListingTests
             AuthenticationService = new AuthenticationService(ListingService);
         }
 
+        //[Fact]
+        //public void TestJsonDataForListingFaker()
+        //{
+        //    ListingFactory.WriteListingToFile();
+
+        //}
+
         [Fact]
         public async void ListingShouldBeCreated()
         {

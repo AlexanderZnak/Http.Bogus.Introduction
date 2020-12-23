@@ -17,14 +17,13 @@ namespace CDListingTests
         private static readonly HttpClient Client = new HttpClient();
 
         // TODO Faker listing
-        // TODO Gyt Crypt
         // TODO Utils for writting  dowm data into file
 
         public ListingService(ILogger<ListingService> logger) => Logger = logger;
 
         public async Task<HttpResponseMessage> CreateListing(string token)
         {
-            var payload = ParseJson("createListing.json");
+            var payload = ParseJson("listing.json");
             var request = CreateRestRequest(method: HttpMethod.Post, uri: $"{ListingServerUrl}/listings/", authorization: "Authorization", bearerToken: $"Bearer {token}", payload: payload);
             var response = await Execute(request);
 
@@ -65,6 +64,7 @@ namespace CDListingTests
             if (payload != null)
             {
                 string jsonPayload = JsonConvert.SerializeObject(payload);
+                Logger.LogInformation($"Payload is: {jsonPayload}");
                 HttpContent httpContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
                 request.Content = httpContent;
             }
@@ -93,11 +93,11 @@ namespace CDListingTests
 
         public static string ExtractIdFromHeaders(HttpResponseMessage response) => response.Headers.Location.ToString().Split("listings/id/")[1];
 
-        private static Listing ParseJson(string file)
+        private static ListingHttp ParseJson(string file)
         {
             try
             {
-                return JsonConvert.DeserializeObject<Listing>(File.ReadAllText(file));
+                return JsonConvert.DeserializeObject<ListingHttp>(File.ReadAllText(file));
             }
             catch (FileNotFoundException)
             {

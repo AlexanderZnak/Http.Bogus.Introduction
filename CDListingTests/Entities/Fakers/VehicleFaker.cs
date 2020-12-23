@@ -1,8 +1,7 @@
 ﻿using Bogus;
 using CDListingTests.Models;
+using CDListingTests.Models.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CDListingTests.Entities.Fakers
 {
@@ -16,8 +15,8 @@ namespace CDListingTests.Entities.Fakers
                 .RuleFor(v => v.Year, f => f.Date.Past(f.Random.Int(1, 10), DateTime.Now).Year)
                 .RuleFor(v => v.Id, f => "1")
                 .RuleFor(v => v.Qty, f => 1)
-                .RuleFor(v => v.WideLoad, f => f.Random.Bool());
-
+                .RuleFor(v => v.WideLoad, f => f.Random.Bool())
+                .RuleFor(v => v.VehicleType, f => f.PickRandom<VehicleType>());
         }
     }
 }

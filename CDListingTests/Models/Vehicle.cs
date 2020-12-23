@@ -1,4 +1,6 @@
-﻿namespace CDListingTests.Models
+﻿using CDListingTests.Models.Enums;
+
+namespace CDListingTests.Models
 {
     public class Vehicle
     {
@@ -13,5 +15,7 @@
         public int? Qty { get; set; }
 
         public bool WideLoad { get; set; }
+
+        public VehicleType? VehicleType { get; set; }
     }
 }

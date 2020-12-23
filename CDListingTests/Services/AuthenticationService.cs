@@ -31,7 +31,7 @@ namespace CDListingTests.Services
                 };
             var request = new HttpRequestMessage(HttpMethod.Post, $"{IdentityServerUrl}/connect/token");
             request.Content = new FormUrlEncodedContent(credentials);
-            //var request = ListingService.CreateRestRequest(method: HttpMethod.Post, uri: $"{IdentityServerUrl}/connect/token", credentials: credentials);
+
             var response = await ListingService.Execute(request);
             if (!response.IsSuccessStatusCode)
             {
