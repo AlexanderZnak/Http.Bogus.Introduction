@@ -16,12 +16,12 @@ namespace CDListingTests
             AuthenticationService = new AuthenticationService(ListingService);
         }
 
-        //[Fact]
-        //public void TestJsonDataForListingFaker()
-        //{
-        //    ListingFactory.WriteListingToFile();
+        [Fact]
+        public void TestJsonDataForListingFaker()
+        {
+            ListingFactory.WriteListingToFile();
 
-        //}
+        }
 
         [Fact]
         public async void ListingShouldBeCreated()
@@ -30,7 +30,7 @@ namespace CDListingTests
             var token = await AuthenticationService.GetToken();
 
             //Act
-            var response = await ListingService.CreateListing(token);
+            var response = await ListingService.CreateListing(token, ListingFactory.GenerateFakeListing().Generate());
 
             // Assert
             Assert.Equal(201, (int)response.StatusCode);
@@ -44,7 +44,7 @@ namespace CDListingTests
             // Arrange
             var token = await AuthenticationService.GetToken();
 
-            var createListing = await ListingService.CreateListing(token);
+            var createListing = await ListingService.CreateListing(token, ListingFactory.GenerateFakeListing().Generate());
 
             var id = ListingService.ExtractIdFromHeaders(createListing);
 
@@ -62,12 +62,12 @@ namespace CDListingTests
             // Arrange
             var token = await AuthenticationService.GetToken();
 
-            var createListing = await ListingService.CreateListing(token);
+            var createListing = await ListingService.CreateListing(token, ListingFactory.GenerateFakeListing().Generate());
 
             var id = ListingService.ExtractIdFromHeaders(createListing);
 
             // Act
-            var response = await ListingService.UpdateListing(id, token);
+            var response = await ListingService.UpdateListing(id, token, ListingFactory.GenerateFakeListing().Generate());
 
             // Assert
             Assert.Equal(204, (int)response.StatusCode);
@@ -81,7 +81,7 @@ namespace CDListingTests
             // Arrange
             var token = await AuthenticationService.GetToken();
 
-            var createListing = await ListingService.CreateListing(token);
+            var createListing = await ListingService.CreateListing(token, ListingFactory.GenerateFakeListing().Generate());
 
             var id = ListingService.ExtractIdFromHeaders(createListing);
 

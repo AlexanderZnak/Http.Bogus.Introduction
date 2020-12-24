@@ -1,9 +1,6 @@
-﻿using CAL.CD.Listings.API.Models;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,15 +13,11 @@ namespace CDListingTests
         private readonly ILogger Logger;
         private static readonly HttpClient Client = new HttpClient();
 
-        // TODO Faker listing
-        // TODO Utils for writting  dowm data into file
-
         public ListingService(ILogger<ListingService> logger) => Logger = logger;
 
-        public async Task<HttpResponseMessage> CreateListing(string token)
+        public async Task<HttpResponseMessage> CreateListing(string token, ListingHttp listing)
         {
-            var payload = ParseJson("listing.json");
-            var request = CreateRestRequest(method: HttpMethod.Post, uri: $"{ListingServerUrl}/listings/", authorization: "Authorization", bearerToken: $"Bearer {token}", payload: payload);
+            var request = CreateRestRequest(method: HttpMethod.Post, uri: $"{ListingServerUrl}/listings/", authorization: "Authorization", bearerToken: $"Bearer {token}", payload: listing);
             var response = await Execute(request);
 
             return response;
@@ -38,10 +31,9 @@ namespace CDListingTests
             return response;
         }
 
-        public async Task<HttpResponseMessage> UpdateListing(string id, string token)
+        public async Task<HttpResponseMessage> UpdateListing(string id, string token, ListingHttp listing)
         {
-            var payload = ParseJson("updateListing.json");
-            var request = CreateRestRequest(method: HttpMethod.Put, uri: $"{ListingServerUrl}/listings/id/{id}", authorization: "Authorization", bearerToken: $"Bearer {token}", payload: payload);
+            var request = CreateRestRequest(method: HttpMethod.Put, uri: $"{ListingServerUrl}/listings/id/{id}", authorization: "Authorization", bearerToken: $"Bearer {token}", payload: listing);
             var response = await Execute(request);
 
             return response;
@@ -92,22 +84,6 @@ namespace CDListingTests
         }
 
         public static string ExtractIdFromHeaders(HttpResponseMessage response) => response.Headers.Location.ToString().Split("listings/id/")[1];
-
-        private static ListingHttp ParseJson(string file)
-        {
-            try
-            {
-                return JsonConvert.DeserializeObject<ListingHttp>(File.ReadAllText(file));
-            }
-            catch (FileNotFoundException)
-            {
-                throw new Exception($"File: {file} doesn't exist");
-            }
-            catch (JsonReaderException)
-            {
-                throw new Exception($"Json deserialize didn't work due to {file} has json syntax errors");
-            }
-        }
 
         private static string FormatRequestBody(string body) => JToken.Parse(body).ToString(Formatting.Indented);
 

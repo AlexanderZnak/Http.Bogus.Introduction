@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CDListingTests.Models.Enums
+﻿namespace CDListingTests.Models.Enums
 {
     public enum VehicleType
     {
