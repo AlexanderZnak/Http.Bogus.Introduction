@@ -17,13 +17,6 @@ namespace CDListingTests
         }
 
         [Fact]
-        public void TestJsonDataForListingFaker()
-        {
-            ListingFactory.WriteListingToFile();
-
-        }
-
-        [Fact]
         public async void ListingShouldBeCreated()
         {
             //Arrange

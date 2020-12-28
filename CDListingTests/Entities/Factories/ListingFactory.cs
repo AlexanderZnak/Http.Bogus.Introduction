@@ -8,8 +8,7 @@ namespace CDListingTests
     public static class ListingFactory
     {
 
-        public static Faker<ListingHttp> GenerateFakeListing() =>
-         ListingFaker.AllFields();
+        public static Faker<ListingHttp> GenerateFakeListing() => ListingFaker.AllFields();
 
 
         //public static void WriteListingToFile()
