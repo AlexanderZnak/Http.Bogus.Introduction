@@ -1,4 +1,7 @@
-﻿using CDListingTests.Services;
+﻿using CDListingTests.Assertions;
+using CDListingTests.Services;
+using FluentAssertions.Execution;
+using System.Net;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,7 +29,10 @@ namespace CDListingTests
             var response = await ListingService.CreateListing(token, ListingFactory.GenerateFakeListing().Generate());
 
             // Assert
-            Assert.Equal(201, (int)response.StatusCode);
+            using (new AssertionScope())
+            {
+                ResponseAssertion.ResponseShouldBeCorrect(response, HttpStatusCode.Created, shouldHaveContent: false);
+            }
 
         }
 
@@ -45,7 +51,10 @@ namespace CDListingTests
             var response = await ListingService.GetListing(id, token);
 
             // Assert
-            Assert.Equal(200, (int)response.StatusCode);
+            using (new AssertionScope())
+            {
+                ResponseAssertion.ResponseShouldBeCorrect(response, HttpStatusCode.OK, id: id);
+            }
         }
 
         [Fact]
@@ -63,7 +72,10 @@ namespace CDListingTests
             var response = await ListingService.UpdateListing(id, token, ListingFactory.GenerateFakeListing().Generate());
 
             // Assert
-            Assert.Equal(204, (int)response.StatusCode);
+            using (new AssertionScope())
+            {
+                ResponseAssertion.ResponseShouldBeCorrect(response, HttpStatusCode.NoContent, shouldHaveContent: false);
+            }
 
         }
 
@@ -82,7 +94,10 @@ namespace CDListingTests
             var response = await ListingService.DeleteListing(id, token);
 
             // Assert
-            Assert.Equal(204, (int)response.StatusCode);
+            using (new AssertionScope())
+            {
+                ResponseAssertion.ResponseShouldBeCorrect(response, HttpStatusCode.NoContent, shouldHaveContent: false);
+            }
 
         }
 
