@@ -12,7 +12,6 @@
         RV,
         SUV,
         TRAVEL_TRAILER,
-        VAN,
-        OTHER
+        VAN
     }
 }
