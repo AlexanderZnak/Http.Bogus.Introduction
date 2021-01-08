@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CDListingTests.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,23 +11,23 @@ namespace CDListingTests.Services
     {
         private readonly ListingService ListingService;
         public const string IdentityServerUrl = "https://stage-id.awscalnp.manheim.com";
-        public IConfiguration Configuration { get; set; }
+        //public IConfiguration Configuration { get; set; }
 
         public AuthenticationService(ListingService listingService) => ListingService = listingService;
 
         public async Task<string> GetToken()
         {
-            ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-            configurationBuilder.AddJsonFile("appsettings.json");
-            Configuration = configurationBuilder.Build();
+            //ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+            //configurationBuilder.AddJsonFile("appsettings.json");
+            //Configuration = configurationBuilder.Build();
             var credentials = new Dictionary<string, string>
                 {
-                    {"Content-Type",Configuration["Content-Type"] },
-                    {"client_id", Configuration["client_id"] },
-                    {"client_secret",Configuration["client_secret"] },
-                    {"grant_type",Configuration["grant_type"] },
-                    {"UserName",Configuration["Username"] },
-                    {"Password",Configuration["Password"] }
+                    {"Content-Type", ConfigManager.IdentitySettings.ContentType},
+                    {"client_id", ConfigManager.IdentitySettings.ClientId },
+                    {"client_secret",ConfigManager.IdentitySettings.ClientSecret },
+                    {"grant_type",ConfigManager.IdentitySettings.GrantType },
+                    {"UserName",ConfigManager.IdentitySettings.UserName },
+                    {"Password",ConfigManager.IdentitySettings.Password }
                 };
             var request = new HttpRequestMessage(HttpMethod.Post, $"{IdentityServerUrl}/connect/token");
             request.Content = new FormUrlEncodedContent(credentials);
