@@ -1,11 +1,12 @@
 ﻿using AutomationTests.TestData;
-using System.Threading;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace AutomationTests.tests
 {
     public class LoginTest : BaseTest
     {
+        public LoginTest(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
         public void SearchPageShouldBeOpenedAfterLogIn()
@@ -21,11 +22,11 @@ namespace AutomationTests.tests
 
             // Assert
             SearchPage.IsPageOpened();
-            Thread.Sleep(4000);
+
         }
 
         [Theory]
-        [ClassData(typeof(LoginFakerData))]
+        [ClassData(typeof(LoginMock))]
         public void ErrorShouldBeAppearedWithInvalidPassword(string password)
         {
             // Arrange
@@ -38,8 +39,32 @@ namespace AutomationTests.tests
                 .ClickSignIn();
 
             // Assert
-            SearchPage.IsPageOpened();
-            Thread.Sleep(4000);
+            var actualErrorMessage = LoginPage.GetErrorText();
+            var expectedErrorMessage = "Username and Password did not match.";
+
+            Assert.Equal(expectedErrorMessage, actualErrorMessage);
+
+        }
+
+        [Theory]
+        [ClassData(typeof(LoginMock))]
+        public void ErrorShouldBeAppearedWithInvalidUsername(string username)
+        {
+            // Arrange
+            LoginPage
+                .OpenPage();
+
+            // Act
+            LoginPage
+                .FillInFieldsUsernamePassword(username, PASSWORD)
+                .ClickSignIn();
+
+            // Assert
+            var actualErrorMessage = LoginPage.GetErrorText();
+            var expectedErrorMessage = "Invalid username";
+
+            Assert.Equal(expectedErrorMessage, actualErrorMessage);
+
         }
 
     }

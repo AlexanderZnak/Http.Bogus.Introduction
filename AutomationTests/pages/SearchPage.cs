@@ -1,9 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationTests.pages
 {
@@ -12,7 +9,7 @@ namespace AutomationTests.pages
         private const string SEARCH_DR = "https://searchdr.";
         private readonly By SaveSearchButton = By.CssSelector("[data-elementid='save-search-button']");
 
-        public SearchPage(IWebDriver driver) : base(driver) { }
+        public SearchPage(IWebDriver driver, ILogger<SearchPage> logger) : base(driver, logger) { }
 
         public override SearchPage OpenPage()
         {
@@ -36,6 +33,6 @@ namespace AutomationTests.pages
             return this;
         }
 
-        
+
     }
 }

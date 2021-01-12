@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using System;
 
 namespace AutomationTests.pages
@@ -9,7 +10,8 @@ namespace AutomationTests.pages
         private readonly By UsernameInput = By.Id("Username");
         private readonly By PasswordInput = By.Id("password");
         private readonly By LoginButton = By.Id("loginButton");
-        public LoginPage(IWebDriver driver) : base(driver) { }
+        private readonly By AllertError = By.CssSelector(".danger");
+        public LoginPage(IWebDriver driver, ILogger<LoginPage> logger) : base(driver, logger) { }
 
         public override LoginPage OpenPage()
         {
@@ -35,6 +37,7 @@ namespace AutomationTests.pages
 
         public LoginPage FillInFieldsUsernamePassword(string username, string password)
         {
+            Logger.LogInformation($"Username is : {username}, Password is : {password}");
             DriverFindElement(UsernameInput).SendKeys(username);
             DriverFindElement(PasswordInput).SendKeys(password);
 
@@ -47,5 +50,14 @@ namespace AutomationTests.pages
 
             return this;
         }
+
+        public string GetErrorText()
+        {
+            var errorMessage = DriverFindElement(AllertError).Text;
+            Logger.LogInformation($"Error message is : {errorMessage}");
+
+            return errorMessage;
+        }
+
     }
 }

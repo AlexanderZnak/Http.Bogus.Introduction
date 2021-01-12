@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 
@@ -9,9 +10,11 @@ namespace AutomationTests.pages
         protected const string URL = "centraldispatch.com";
         protected readonly IWebDriver Driver;
         protected readonly WebDriverWait Wait;
+        protected readonly ILogger Logger;
 
-        public BasePage(IWebDriver driver)
+        public BasePage(IWebDriver driver, ILogger<BasePage> logger)
         {
+            Logger = logger;
             this.Driver = driver;
             Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
         }
@@ -22,6 +25,7 @@ namespace AutomationTests.pages
 
         public IWebElement DriverFindElement(By locator)
         {
+            Logger.LogInformation($"Find element by locator : {locator}");
             IWebElement element;
             try
             {
@@ -42,7 +46,7 @@ namespace AutomationTests.pages
             {
                 Wait.Until(d => element.Displayed == true);
             }
-            catch(WebDriverTimeoutException)
+            catch (WebDriverTimeoutException)
             {
                 throw new Exception($"Element is not displayed to click");
             }
