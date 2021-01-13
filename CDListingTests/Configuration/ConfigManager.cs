@@ -1,8 +1,15 @@
 ﻿namespace CDListingTests.Configuration
 {
-    public static class ConfigManager
+    public class ConfigManager
     {
-        public static IdentitySettings IdentitySettings => Startup.IdentitySettings;
+        private static ConfigManager _configManager = new ConfigManager();
 
+        private ConfigManager()
+        {
+        }
+
+        public static ConfigManager GetInstance() => _configManager;
+
+        public IdentitySettings IdentitySettings { get; set; }
     }
 }

@@ -1,12 +1,38 @@
 ﻿using CDListingTests.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
+using Xunit.DependencyInjection;
+using Xunit.DependencyInjection.Logging;
 
 namespace CDListingTests
 {
+    public interface IDependency
+    {
+        ITestOutputHelper OutputHelper { get; }
+    }
+    
+    internal class DependencyClass : IDependency
+    {
+        private readonly ITestOutputHelperAccessor _testOutputHelperAccessor;
+
+        public DependencyClass(ITestOutputHelperAccessor testOutputHelperAccessor)
+        {
+            _testOutputHelperAccessor = testOutputHelperAccessor;
+        }
+        public ITestOutputHelper OutputHelper => _testOutputHelperAccessor.Output;
+    }
+
     public class Startup
     {
-        private readonly IdentitySettings _identitySettings = new IdentitySettings();
-        public static IdentitySettings IdentitySettings { get; private set; }
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddTransient<IDependency, DependencyClass>();
+        }
+
+        public void Configure(ILoggerFactory loggerFactory, ITestOutputHelperAccessor accessor) =>
+            loggerFactory.AddProvider(new XunitTestOutputLoggerProvider(accessor));
 
         public Startup()
         {
@@ -15,11 +41,7 @@ namespace CDListingTests
                 .AddEnvironmentVariables()
                 .Build();
 
-            configuration.Bind(_identitySettings);
-
-            IdentitySettings = _identitySettings;
-        
-
-
+            configuration.Bind(ConfigManager.GetInstance());
+        }
     }
 }
