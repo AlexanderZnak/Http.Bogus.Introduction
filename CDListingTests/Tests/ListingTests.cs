@@ -13,9 +13,12 @@ namespace CDListingTests
         private readonly ITestOutputHelper OutputHelper;
         private readonly ListingService ListingService;
         private readonly AuthenticationService AuthenticationService;
-        public ListingTests(ITestOutputHelper outputHelper)
+        private readonly IDependency _dependency;
+
+        public ListingTests(IDependency dependency)
         {
-            OutputHelper = outputHelper;
+            _dependency = dependency;
+            OutputHelper = _dependency.OutputHelper;
             ListingService = new ListingService(OutputHelper.ToLogger<ListingService>());
             AuthenticationService = new AuthenticationService(ListingService);
         }
