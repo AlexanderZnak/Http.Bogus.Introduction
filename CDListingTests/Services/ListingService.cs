@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace CDListingTests
+namespace CDListingTests.Services
 {
-    class ListingService
+    internal class ListingService
     {
         public const string ListingServerUrl = "https://stage-api.awscalnp.manheim.com/listing-service";
         private readonly ILogger Logger;
