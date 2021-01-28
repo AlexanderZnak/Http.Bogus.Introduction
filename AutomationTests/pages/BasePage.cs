@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutomationTests.Configuration;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -7,54 +8,40 @@ namespace AutomationTests.pages
 {
     public abstract class BasePage
     {
-        protected const string URL = "centraldispatch.com";
         protected readonly IWebDriver Driver;
         protected readonly WebDriverWait Wait;
         protected readonly ILogger Logger;
+        protected readonly IdentitySettings _identitySettings = ConfigManager.GetInstance().IdentitySettings;
 
         public BasePage(IWebDriver driver, ILogger<BasePage> logger)
         {
             Logger = logger;
-            this.Driver = driver;
-            Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            Driver = driver;
+            Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
-        public abstract BasePage OpenPage();
+        public abstract void OpenPage();
 
-        public abstract BasePage IsPageOpened();
-
-        public IWebElement DriverFindElement(By locator)
-        {
-            Logger.LogInformation($"Find element by locator : {locator}");
-            IWebElement element;
-            try
-            {
-                element = Driver.FindElement(locator);
-            }
-            catch (NoSuchElementException)
-            {
-                throw new Exception($"Element with locator : {locator} does not exist or does not have time to download in DOM");
-            }
-
-            return element;
-        }
+        public abstract bool IsPageOpened();
 
         public void Click(By locator)
         {
-            IWebElement element = DriverFindElement(locator);
+            IWebElement element = Driver.FindElement(locator);
             try
             {
-                Wait.Until(d => element.Displayed == true);
+                Wait.Until(d => element.Displayed);
             }
             catch (WebDriverTimeoutException)
             {
                 throw new Exception($"Element is not displayed to click");
             }
+            finally
+            {
+                Logger.LogInformation($"Click element by locator : {locator}");
+            }
 
             element.Click();
         }
-
-
 
     }
 }
