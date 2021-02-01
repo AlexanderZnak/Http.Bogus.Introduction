@@ -26,6 +26,7 @@ namespace AutomationTests.pages
 
         public void Click(By locator)
         {
+            Logger.LogInformation($"Click element by locator : {locator}");
             IWebElement element = Driver.FindElement(locator);
             try
             {
@@ -34,10 +35,6 @@ namespace AutomationTests.pages
             catch (WebDriverTimeoutException)
             {
                 throw new Exception($"Element is not displayed to click");
-            }
-            finally
-            {
-                Logger.LogInformation($"Click element by locator : {locator}");
             }
 
             element.Click();

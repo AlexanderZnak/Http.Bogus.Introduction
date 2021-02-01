@@ -15,7 +15,7 @@ namespace AutomationTests.pages
         public override void OpenPage()
         {
             var url = _identitySettings.LoginUrl;
-            Driver.Navigate().GoToUrl(url + "/Account/Login?ReturnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3Dcentral_dispatch_web_client%26redirect_uri%3Dhttps%253A%252F%252Fsearchdr.centraldispatch.com%252Foidc-callback%26response_type%3Dtoken%2520id_token%26scope%3Dopenid%2520listings_search%2520listings_search_web_bff%26state%3Dc2135025226d484591d71664fc9f7cfc%26nonce%3D2b8d77e13d4c48abbfb1552b96e546df");
+            Driver.Navigate().GoToUrl(url);
 
             Assert.True(IsPageOpened());
         }
