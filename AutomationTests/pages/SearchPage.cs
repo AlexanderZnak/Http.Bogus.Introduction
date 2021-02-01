@@ -1,38 +1,37 @@
 ﻿using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
-using System;
+using Xunit;
 
 namespace AutomationTests.pages
 {
     public class SearchPage : BasePage
     {
-        private const string SEARCH_DR = "https://searchdr.";
         private readonly By SaveSearchButton = By.CssSelector("[data-elementid='save-search-button']");
 
         public SearchPage(IWebDriver driver, ILogger<SearchPage> logger) : base(driver, logger) { }
 
-        public override SearchPage OpenPage()
+        public override void OpenPage()
         {
-            Driver.Navigate().GoToUrl(SEARCH_DR + URL);
-            IsPageOpened();
+            var url = _identitySettings.SearchUrl;
+            Driver.Navigate().GoToUrl(url);
 
-            return this;
+            Assert.True(IsPageOpened());
         }
 
-        public override SearchPage IsPageOpened()
+        public override bool IsPageOpened()
         {
+            bool isOpened;
             try
             {
-                Wait.Until(driver => DriverFindElement(SaveSearchButton).Displayed == true);
+                isOpened = Wait.Until(driver => Driver.FindElement(SaveSearchButton).Displayed);
             }
             catch (WebDriverTimeoutException)
             {
-                throw new Exception("Search page wasn't opened");
+                isOpened = false;
             }
 
-            return this;
+            return isOpened;
         }
-
 
     }
 }

@@ -14,14 +14,16 @@ namespace AutomationTests.tests
             // Arrange
             LoginPage
                 .OpenPage();
+            var username = _identitySettings.UserName;
+            var password = _identitySettings.Password;
 
             // Act
             LoginPage
-                .FillInFieldsUsernamePassword(USERNAME, PASSWORD)
+                .FillInFieldsUsernamePassword(username, password)
                 .ClickSignIn();
 
             // Assert
-            SearchPage.IsPageOpened();
+            Assert.True(SearchPage.IsPageOpened());
 
         }
 
@@ -32,10 +34,11 @@ namespace AutomationTests.tests
             // Arrange
             LoginPage
                 .OpenPage();
+            var username = _identitySettings.UserName;
 
             // Act
             LoginPage
-                .FillInFieldsUsernamePassword(USERNAME, password)
+                .FillInFieldsUsernamePassword(username, password)
                 .ClickSignIn();
 
             // Assert
@@ -53,10 +56,11 @@ namespace AutomationTests.tests
             // Arrange
             LoginPage
                 .OpenPage();
+            var password = _identitySettings.Password;
 
             // Act
             LoginPage
-                .FillInFieldsUsernamePassword(username, PASSWORD)
+                .FillInFieldsUsernamePassword(username, password)
                 .ClickSignIn();
 
             // Assert
